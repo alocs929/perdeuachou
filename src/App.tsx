@@ -1,25 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './styles/globalStyles.css';
+import { Container } from './styles';
+import api from './service/api';
+// import { uuid } from 'react-uuid';
+import { uuid } from 'uuidv4';
 
-function App() {
+const App: React.FC = () => {
+  const [respostaListUsers, setRespostaListUsers ] = useState([]);
+
+  // useEffect(()=>{
+  //   handleTest();
+  // },[respostaListUsers]);
+
+  async function handleTest (){
+    // let i;
+    // for(i=0; i<10; i++){
+      // const idUnique = uuid();
+      // const user = {
+      //   cpfCpnj: idUnique,
+      //   email: `${idUnique}@gmail.com`,
+      //   nome: `Teste ${idUnique}`,
+      //   pertences: [],
+      //   telefone: 12345678
+      // }
+      // console.log(user);
+      const response = await api.get('/');
+      console.log(response);
+      // setResposta([...respostaListUsers, response.nome]);
+    // }
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Container>
+        <h1>Teste da api de Perdeu achou usando o balanceador</h1>
+        <button onClick={handleTest}>Testar</button>
+        {respostaListUsers && respostaListUsers.map(item => {
+          return (
+            <label htmlFor="" key={item}>{item}</label>
+          );
+        })}
+        
+      </Container>
+    </>
   );
 }
 
